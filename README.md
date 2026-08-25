@@ -33,17 +33,17 @@ curl http://localhost:8003/v1/models
 ## Status
 
 - `docker-compose.yml` files are live
-- More details about tuning, concurrency, and optimization coming soon
+- More details about tuning, concurrency, and optimization coming soon  
 
-Pushes memory pretty far:
+Memory after tweaks (20260824):
 ```bash
 $ free -h
                total        used        free      shared  buff/cache   available
-Mem:           121Gi       115Gi       5.0Gi       767Mi       2.9Gi       5.7Gi
-Swap:           15Gi       8.0Gi       8.0Gi
+Mem:           121Gi       103Gi       1.1Gi       812Mi        19Gi        18Gi
+Swap:           15Gi       2.0Gi        14Gi
 
 $ nvidia-smi
-Fri Aug 21 00:30:09 2026       
+Mon Aug 24 22:54:48 2026       
 +-----------------------------------------------------------------------------------------+
 | NVIDIA-SMI 580.173.02             Driver Version: 580.173.02     CUDA Version: 13.0     |
 +-----------------------------------------+------------------------+----------------------+
@@ -52,7 +52,7 @@ Fri Aug 21 00:30:09 2026
 |                                         |                        |               MIG M. |
 |=========================================+========================+======================|
 |   0  NVIDIA GB10                    On  |   0000000F:01:00.0 Off |                  N/A |
-| N/A   63C    P0             44W /  N/A  | Not Supported          |     96%      Default |
+| N/A   54C    P0             11W /  N/A  | Not Supported          |      0%      Default |
 |                                         |                        |                  N/A |
 +-----------------------------------------+------------------------+----------------------+
 
@@ -61,13 +61,11 @@ Fri Aug 21 00:30:09 2026
 |  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
 |        ID   ID                                                               Usage      |
 |=========================================================================================|
-|    0   N/A  N/A            3154      G   /usr/lib/xorg/Xorg                       18MiB |
-|    0   N/A  N/A            3359      G   /usr/bin/gnome-shell                      6MiB |
-|    0   N/A  N/A            6008      C   VLLM::EngineCore                      56501MiB |
-|    0   N/A  N/A           44757      C   VLLM::EngineCore                      48829MiB |
+|    0   N/A  N/A            3014      G   /usr/lib/xorg/Xorg                       18MiB |
+|    0   N/A  N/A            3521      G   /usr/bin/gnome-shell                      6MiB |
+|    0   N/A  N/A           16618      C   VLLM::EngineCore                      43079MiB |
+|    0   N/A  N/A           16838      C   VLLM::EngineCore                      44699MiB |
 +-----------------------------------------------------------------------------------------+
-
-
 ```
 
 > **WIP** — initial setup, more to follow.
