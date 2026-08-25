@@ -16,8 +16,8 @@ This may or may not be optimal. I was just trying to get two decently large mode
 
 ```bash
 # Start both containers
-docker compose -f vllm/docker-compose.yml up -d
-docker compose -f qwen-3.8-28b/docker-compose.yml up -d
+docker compose -f qwen-reason/docker-compose.yml up -d
+docker compose -f qwen-3.8-27b/docker-compose.yml up -d
 
 # Test
 curl http://localhost:8000/v1/models

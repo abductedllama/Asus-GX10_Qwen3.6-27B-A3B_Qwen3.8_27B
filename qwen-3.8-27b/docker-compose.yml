@@ -1,0 +1,80 @@
+services:
+  vllm:
+    image: vllm/vllm-openai:v0.26.0
+    container_name: qwen38-aeon
+
+    ports:
+      - "8003:8000"
+
+    environment:
+      HF_TOKEN: ${HF_TOKEN}
+
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+      - ~/.cache/vllm:/root/.cache/vllm
+
+    command:
+      - sakamakismile/Qwen3.8-27B-AEON-ULTIMATE-UNCENSORED-NVFP4
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
+
+      # Single GB10
+      - --tensor-parallel-size
+      - "1"
+
+      # FP8 KV cache
+      - --kv-cache-dtype
+      - fp8
+
+      # FlashInfer
+      - --attention-backend
+      - flashinfer
+
+      - --gpu-memory-utilization
+      - "0.45"
+      
+      - --kv-cache-memory
+      - "16488545280"
+
+      # 2x increase; fits within remaining headroom.
+      - --max-model-len
+      - "65536"
+
+      - --max-num-seqs
+      - "6"
+      - --max-num-batched-tokens
+      - "32768"
+
+      - --enable-chunked-prefill
+      - --async-scheduling
+      - --enable-prefix-caching
+
+      # Quantized safetensors checkpoint
+      - --load-format
+      - safetensors
+
+      # Qwen3 reasoning
+      - --reasoning-parser
+      - qwen3
+
+      # Qwen3 tool calling
+      - --tool-call-parser
+      - qwen3_xml
+      - --enable-auto-tool-choice
+
+      # Qwen3.5-style MTP speculative decoding.
+      # Matches the model author's recommended configuration.
+      - --speculative-config
+      - '{"method":"qwen3_5_mtp","num_speculative_tokens":3}'
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+    restart: unless-stopped
