@@ -44,10 +44,11 @@ curl http://localhost:8003/v1/models
 
 | Service | Port | Description |
 |---|---|---|
-| `qwen-reason` (35B) | 8000 | Deep reasoning, large context |
-| `qwen38-aeon` (27B) | 8003 | Fast tool calls, subagents |
+| `qwen-reason`* (35B) | 8000 | Deep reasoning, large context |
+| `qwen38-aeon`* (27B) | 8003 | Fast tool calls, subagents |
 | Hindsight | 8888 | External memory provider (separate server) |
 
+> **Note:** *Container/service names in Docker are `vllm` and `qwen38-aeon` respectively.
 > **Note:** The 27B model runs on port 8003, but its command-line config also references port 8000 internally.  
 
 Memory after tweaks (20260824):
