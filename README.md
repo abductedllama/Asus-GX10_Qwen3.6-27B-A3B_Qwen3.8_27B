@@ -33,7 +33,22 @@ curl http://localhost:8003/v1/models
 ## Status
 
 - `docker-compose.yml` files are live
-- More details about tuning, concurrency, and optimization coming soon  
+- More details about tuning, concurrency, and optimization coming soon
+
+## Memory & Routing
+
+- **Hindsight** — external memory provider running on port **8888** on a separate server
+- **Smart routing** — 35B model handles deep reasoning & long context (port 8000), 27B model handles fast tool calls & subagents (port 8003)
+
+## Ports
+
+| Service | Port | Description |
+|---|---|---|
+| `qwen-reason` (35B) | 8000 | Deep reasoning, large context |
+| `qwen38-aeon` (27B) | 8003 | Fast tool calls, subagents |
+| Hindsight | 8888 | External memory provider (separate server) |
+
+> **Note:** The 27B model runs on port 8003, but its command-line config also references port 8000 internally.  
 
 Memory after tweaks (20260824):
 ```bash
