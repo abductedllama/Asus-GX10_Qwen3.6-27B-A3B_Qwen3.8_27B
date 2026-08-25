@@ -1,4 +1,4 @@
-# Asus-GX10_Qwen3.6-27B-A3B_Qwen3.8_27B
+# Asus-GX10_Qwen3.6-35B-A3B_Qwen3.8_27B
 Configuration for Running Qwen3.6 35b MOE and Qwen3.8 27b Dense
 
 Running on **ASUS GX10** (ARM64) via vLLM with Docker Compose.
